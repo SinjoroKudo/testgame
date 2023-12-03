@@ -1,4 +1,4 @@
-﻿define college_girl = Character("女大")
+define college_girl = Character("女大")
 
 init:
     image background = im.Scale("background.png", config.screen_width, config.screen_height)
@@ -7,7 +7,7 @@ default girl_affection = 0
 
 init python:
     style.create("affection_text", "default")
-    style.affection_text.font = "a.ttf"
+    style.affection_text.font = "a.ttf" 
     style.affection_text.size = 30
     style.affection_text.color = "#ffffff"
     style.affection_text.outlines = [(2, "#FFC0CB", 0, 0)]
@@ -39,5 +39,29 @@ label start:
             "听到这个声音，男主打开了门。"
 
     "两人见面，女大行李很多。"
+
+    menu:
+        "帮拿行李":
+            $ girl_affection += 1
+            "女大好感+1。"
+
+        "不帮拿行李":
+            "女大好感度不变"
+
+    "女大生理期求救"
+
+    menu:
+        "上前询问是否需要帮助拿行李":
+            $ girl_affection += 10
+            "女大好感+10。"
+
+        "不问":
+            "女大开门请求帮助"
+
+    "女大道谢"
+
+    "互道晚安"
+
+
 
     return
