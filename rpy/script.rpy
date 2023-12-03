@@ -5,13 +5,12 @@ init:
 
 default girl_affection = 0
 
-# 使用艺术字体和边框
 init python:
     style.create("affection_text", "default")
-    style.affection_text.font = "a.ttf"  # 你的字体文件
+    style.affection_text.font = "a.ttf"
     style.affection_text.size = 30
     style.affection_text.color = "#ffffff"
-    style.affection_text.outlines = [(2, "#FFC0CB", 0, 0)]  # 粉色边框
+    style.affection_text.outlines = [(2, "#FFC0CB", 0, 0)]
 
 screen affection_display():
     text "女大好感度: [girl_affection]" style "affection_text" align (0.01, 0.01)
