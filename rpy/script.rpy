@@ -2,6 +2,7 @@ define college_girl = Character("女大")
 
 init:
     image background = im.Scale("background.png", config.screen_width, config.screen_height)
+    
 
 default girl_affection = 0
 
@@ -12,56 +13,78 @@ init python:
     style.affection_text.color = "#ffffff"
     style.affection_text.outlines = [(2, "#FFC0CB", 0, 0)]
 
+
 screen affection_display():
     text "女大好感度: [girl_affection]" style "affection_text" align (0.01, 0.01)
 
+# label start:
+#     show screen affection_display
+#     $ renpy.movie_cutscene("videos/1-1.webm")
+#     show screen affection_display
+
+#     $ renpy.movie_cutscene("videos/1-2.webm")
+#     show screen affection_display
+
+#     $ renpy.movie_cutscene("videos/1-3.webm")
+#     show screen affection_display
+
+#     menu:
+#         "开门":
+#             $ renpy.movie_cutscene("videos/1-3-1.webm")
+#             show screen affection_display
+
+#         "询问":
+#             $ renpy.movie_cutscene("videos/1-3-2.webm")
+#             show screen affection_display
+
+#     $ renpy.movie_cutscene("videos/1-4.webm")
+#     show screen affection_display
+
+#     return
+
+label splashscreen:
+    show logo at truecenter with Dissolve(2.0)
+    $ renpy.pause(0.5, hard=True)
+    pause 1.0
+    hide logo with Dissolve(2.0)
+    $ renpy.pause(0.5, hard=True)
+    return
+
+label before_main_menu:
+    $ renpy.movie_cutscene("videos/0.webm")
+    $ renpy.pause(0.5, hard=True)
+    return
+
+# label main_menu:
+#     return
+
+
 label start:
-    scene background
 
     show screen affection_display
+    $ renpy.call_in_new_context("play_movie", "videos/1-1.webm")
 
-    "凌晨，男主在宿醉中被老铁的微信消息吵醒，打开微信回复老铁信息，老铁微信透露出男主有个室友但从未见过面，引发好奇。"
+    show screen affection_display
+    $ renpy.call_in_new_context("play_movie", "videos/1-2.webm")
 
-    "男主回忆，查看房屋细节。"
-
-    "女大出现，在门外敲门。"
+    show screen affection_display
+    $ renpy.call_in_new_context("play_movie", "videos/1-3.webm")
 
     menu:
         "开门":
-            "男主开门，看到了女大。"
-            college_girl "你好，我是你的新室友。"
-            $ girl_affection += 1
-            "女大好感+1。"
+            show screen affection_display
+            $ renpy.call_in_new_context("play_movie", "videos/1-3-1.webm")
 
-        "询问身份":
-            "男主在门后问：“你是谁？”"
-            college_girl "我是你的新室友。"
-            "听到这个声音，男主打开了门。"
+        "询问":
+            show screen affection_display
+            $ renpy.call_in_new_context("play_movie", "videos/1-3-2.webm")
 
-    "两人见面，女大行李很多。"
-
-    menu:
-        "帮拿行李":
-            $ girl_affection += 1
-            "女大好感+1。"
-
-        "不帮拿行李":
-            "女大好感度不变"
-
-    "女大生理期求救"
-
-    menu:
-        "上前询问是否需要帮助拿行李":
-            $ girl_affection += 10
-            "女大好感+10。"
-
-        "不问":
-            "女大开门请求帮助"
-
-    "女大道谢"
-
-    "互道晚安"
-
-
+    show screen affection_display
+    $ renpy.call_in_new_context("play_movie", "videos/1-4.webm")
 
     return
+
+label play_movie(movie):
+    $ renpy.movie_cutscene(movie)
+    return
+
